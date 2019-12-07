@@ -1,0 +1,11 @@
+#!/bin/bash
+
+battery="`upower -i $(upower -e | grep '/battery') | grep -E percentage|xargs|cut -d' ' -f2|sed s/%//`";
+CRIT=25;
+while true
+do
+if [ $battery -lt $CRIT ]; then
+	DISPLAY=:0.0 notify-send -u critical "Battery Low" "$battery%";
+	sleep 300
+fi
+done

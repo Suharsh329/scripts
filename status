@@ -1,0 +1,12 @@
+#!/bin/bash
+
+show_status() {
+	battery="Battery: `upower -i $(upower -e | grep '/battery') | grep --color=never -E percentage|xargs|cut -d' ' -f2|sed s/%//`";
+	date="Date: `date "+%A %-d %B"`";
+	time="Time: `date +%H:%M`";
+	volume="Volume: `awk -F"[][]" '/dB/ { print $2 }' <(amixer sget Master)`";
+	wifi="`nmcli dev wifi`";
+	DISPLAY=:0.0 notify-send "Status" "$battery%\n$date\n$time\n$volume\n$wifi";
+}
+
+show_status

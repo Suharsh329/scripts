@@ -1,0 +1,23 @@
+#!/bin/bash
+
+generate_data()
+{
+  cat <<EOF
+{
+  "name": "$1",
+  "auto_init": true,
+  "private": false,
+  "has_issues": false,
+  "has_projects": false,
+  "has_wiki": false,
+  "license_template": "MIT"
+}
+EOF
+}
+
+curl -H "Authorization: token ACCESS_TOKEN" --data "$(generate_data $1)" https://api.github.com/user/repos
+cd ~/Projects
+git clone git@github.com:USERNAME/$1.git
+cd $1
+touch .gitignore .editorconfig
+code .
