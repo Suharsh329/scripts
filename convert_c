@@ -1,5 +1,0 @@
-#!/bin/bash
-exec php ~/bin/convert.php $1 ${2:-INR}
-
-
-
